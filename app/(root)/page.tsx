@@ -14,6 +14,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
   return (
     <>
       <section className="pink_container">
+        {/* TODO: Add tag */}
         <h1 className="heading">
           Pitch Your Startup, <br /> Connect With Entrepreneurs
         </h1>
