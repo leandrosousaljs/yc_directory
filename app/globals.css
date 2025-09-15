@@ -72,15 +72,15 @@
 
 /* navbar */
 @utility avatar {
-  @apply p-0 focus-visible:ring-0 bg-none rounded-full drop-shadow-md;
+  @apply !p-0 focus-visible:ring-0 !bg-none !rounded-full !drop-shadow-md;
 }
 
 @utility dropdown-menu {
-  @apply w-56 border-[5px] border-black bg-white p-5 rounded-2xl;
+  @apply !w-56 !border-[5px] !border-black !bg-white !p-5 !rounded-2xl;
 }
 
 @utility login {
-  @apply border-[5px] py-4 border-black bg-white text-black relative shadow-100 font-work-sans font-medium hover:shadow-none transition-all duration-500;
+  @apply !border-[5px] !py-4 !border-black !bg-white !text-black !relative !shadow-100 !font-work-sans !font-medium hover:shadow-none !transition-all !duration-500;
 }
 
 /* searchform */
@@ -93,7 +93,7 @@
 }
 
 @utility search-btn {
-  @apply size-[50px] rounded-full bg-black flex justify-center items-center;
+  @apply !size-[50px] !rounded-full !bg-black !flex !justify-center !items-center;
 }
 
 /* startupcard */
@@ -102,7 +102,7 @@
 }
 
 @utility startup-card_btn {
-  @apply rounded-full bg-black-200 font-medium text-[16px] text-white px-5 py-3;
+  @apply !rounded-full !bg-black-200 !font-medium !text-[16px] !text-white !px-5 !py-3;
 }
 
 @utility startup-card_date {
@@ -135,19 +135,19 @@
 }
 
 @utility startup-form_input {
-  @apply border-[3px] border-black px-5 py-7 text-[18px] text-black font-semibold rounded-full mt-3 placeholder:text-black-300;
+  @apply !border-[3px] !border-black !px-5 !py-7 !text-[18px] !text-black !font-semibold !rounded-full !mt-3 placeholder:text-black-300;
 }
 
 @utility startup-form_textarea {
-  @apply border-[3px] border-black p-5 text-[18px] text-black font-semibold rounded-[20px] mt-3 placeholder:text-black-300;
+  @apply !border-[3px] !border-black !p-5 !text-[18px] !text-black !font-semibold !rounded-[20px] !mt-3 placeholder:text-black-300;
 }
 
 @utility startup-form_editor {
-  @apply mt-3 border-[3px] border-black text-[18px] text-black font-semibold placeholder:text-black-300;
+  @apply !mt-3 !border-[3px] !border-black !text-[18px] !text-black !font-semibold placeholder:text-black-300;
 }
 
 @utility startup-form_btn {
-  @apply bg-primary border-[4px] border-black rounded-full p-5 min-h-[70px] w-full font-bold text-[18px];
+  @apply !bg-primary !border-[4px] !border-black !rounded-full !p-5 !min-h-[70px] !w-full !font-bold !text-[18px];
 }
 
 @utility flex-between {
