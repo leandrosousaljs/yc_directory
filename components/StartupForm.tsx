@@ -2,21 +2,72 @@
 
 import { useActionState, useState } from 'react';
 import MDEditor from '@uiw/react-md-editor';
+import { Send } from 'lucide-react';
+import { z } from 'zod';
+import { toast } from 'sonner';
 
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
-import { Send } from 'lucide-react';
+import { formSchema } from '@/lib/validation';
+import { useRouter } from 'next/navigation';
 
 const StartupForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [pitch, setPitch] = useState('');
-  const handleFormSubmit = () => {
-    const [state, formAction, isPending] = useActionState(handleFormSubmit, { error: '', status: 'INITIAL' });
+  const router = useRouter();
+
+  const handleFormSubmit = async (prevState: any, formData: FormData) => {
+    try {
+      const formValues = {
+        title: formData.get('title') as string,
+        description: formData.get('description') as string,
+        category: formData.get('category') as string,
+        link: formData.get('link') as string,
+        pitch,
+      };
+
+      await formSchema.parseAsync(formValues);
+      console.log(formValues);
+
+      // const result = await createIdea(prevState, formData, pitch);
+
+      // console.log(result);
+
+      // if (result.status === 'SUCCESS') {
+      //   toast('Sucesso!', {
+      //     description: 'Sua startup foi enviada com sucesso.',
+      //   });
+
+      //   router.push(`/startup/${result.id}`);
+      // }
+
+      // return result;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const fieldErrors = error.flatten().fieldErrors;
+
+        setErrors(fieldErrors as unknown as Record<string, string>);
+
+        toast('Erro de validação', {
+          description: 'Por favor, corrija os erros no formulário e tente novamente.',
+        });
+
+        return { ...prevState, error: 'Ocorreu um erro na validação do formulário.', status: 'ERROR' };
+      }
+
+      toast('Erro inesperado', {
+        description: 'Por favor, tente novamente mais tarde.',
+      });
+
+      return { ...prevState, error: 'Ocorreu um erro ao enviar o formulário.', status: 'ERROR' };
+    }
   };
 
+  const [state, formAction, isPending] = useActionState(handleFormSubmit, { error: '', status: 'INITIAL' });
+
   return (
-    <form action={() => {}} className="startup-form">
+    <form action={formAction} className="startup-form">
       <div>
         <label htmlFor="title" className="startup-form_label">
           Nome
