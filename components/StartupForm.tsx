@@ -1,16 +1,17 @@
 'use client';
 
 import { useActionState, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import MDEditor from '@uiw/react-md-editor';
 import { Send } from 'lucide-react';
 import { z } from 'zod';
-import { toast } from 'sonner';
 
+import { toast } from 'sonner';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
 import { formSchema } from '@/lib/validation';
-import { useRouter } from 'next/navigation';
+import { createPitch } from '@/lib/actions'
 
 const StartupForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -28,35 +29,32 @@ const StartupForm = () => {
       };
 
       await formSchema.parseAsync(formValues);
-      console.log(formValues);
 
-      // const result = await createIdea(prevState, formData, pitch);
+      const result = await createPitch(prevState, formData, pitch);
 
-      // console.log(result);
+      if (result.status === 'SUCCESS') {
+        toast.success('Sucesso!', {
+          description: 'Sua startup foi enviada com sucesso.',
+        });
 
-      // if (result.status === 'SUCCESS') {
-      //   toast('Sucesso!', {
-      //     description: 'Sua startup foi enviada com sucesso.',
-      //   });
+        router.push(`/startup/${result._id}`);
+      }
 
-      //   router.push(`/startup/${result.id}`);
-      // }
-
-      // return result;
+      return result;
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors = error.flatten().fieldErrors;
 
         setErrors(fieldErrors as unknown as Record<string, string>);
 
-        toast('Erro de validação', {
+        toast.error('Erro de validação', {
           description: 'Por favor, corrija os erros no formulário e tente novamente.',
         });
 
         return { ...prevState, error: 'Ocorreu um erro na validação do formulário.', status: 'ERROR' };
       }
 
-      toast('Erro inesperado', {
+      toast.error('Erro inesperado', {
         description: 'Por favor, tente novamente mais tarde.',
       });
 
