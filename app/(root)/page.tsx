@@ -1,6 +1,5 @@
 import { sanityFetch, SanityLive } from '@/sanity/lib/live';
 import { STARTUPS_QUERY } from '@/sanity/lib/queries';
-import { auth } from '@/auth';
 
 import StartupCard, { StartupCardType } from '@/components/StartupCard';
 import SearchForm from '../../components/SearchForm';
@@ -10,32 +9,29 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
 
   const params = { search: query || null };
 
-  const session = await auth();
-  console.log(session?.id);
-
   const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
 
   return (
     <>
       <section className="pink_container">
-        {/* TODO: Add tag */}
+        <p className="tag">Faça seu pitch, vote e cresça</p>
         <h1 className="heading">
-          Pitch Your Startup, <br /> Connect With Entrepreneurs
+          Apresente sua startup, <br /> conecte-se com empreendedores
         </h1>
         <p className="sub-heading !max-w-3xl">
-          Submit Ideas, Vote on Pitches, and Get Noticed in Virtual Competitions.
+          Envie ideias, vote nos pitches e ganhe visibilidade para sua startup.
         </p>
         <SearchForm query={query} />
       </section>
 
       <section className="section_container">
-        <p className="text-30-semibold">{query ? `Search Results for "${query}"` : 'All Startups'}</p>
+        <p className="text-30-semibold">{query ? `Resultados da pesquisa por \"${query}\"` : 'Todas as startups'}</p>
 
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
-            posts.map((post: StartupCardType, index: number) => <StartupCard key={post._id} post={post} />)
+            posts.map((post: StartupCardType) => <StartupCard key={post._id} post={post} />)
           ) : (
-            <p className="no-results">No startups found</p>
+            <p className="no-results">Nenhuma Startup Encontrada</p>
           )}
         </ul>
       </section>

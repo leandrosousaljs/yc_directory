@@ -18,7 +18,7 @@ const Navbar = async () => {
           {session && session?.user ? (
             <>
               <Link href="/startup/create">
-                <span className="max-sm:hidden">Create</span>
+                <span className="max-sm:hidden">Criar</span>
                 <BadgePlus className="size-6 sm:hidden" />
               </Link>
 
@@ -29,8 +29,8 @@ const Navbar = async () => {
                   await signOut({ redirectTo: '/' });
                 }}
               >
-                <button type="submit">
-                  <span className="max-sm:hidden">Logout</span>
+                <button className="cursor-pointer" type="submit">
+                  <span className="max-sm:hidden">Sair</span>
                   <LogOut className="size-6 sm:hidden text-red-500" />
                 </button>
               </form>
@@ -50,7 +50,7 @@ const Navbar = async () => {
                 await signIn('github');
               }}
             >
-              <button type="submit">Login</button>
+              <button type="submit">Entrar</button>
             </form>
           )}
         </div>
