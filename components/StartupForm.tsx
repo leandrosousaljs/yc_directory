@@ -14,8 +14,13 @@ import { formSchema } from '@/lib/validation';
 import { createPitch } from '@/lib/actions'
 
 const StartupForm = () => {
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const [link, setLink] = useState('');
   const [pitch, setPitch] = useState('');
+
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const router = useRouter();
 
   const handleFormSubmit = async (prevState: any, formData: FormData) => {
@@ -70,7 +75,15 @@ const StartupForm = () => {
         <label htmlFor="title" className="startup-form_label">
           Nome
         </label>
-        <Input id="title" name="title" className="startup-form_input" required placeholder="Nome da Startup" />
+        <Input
+          id="title"
+          name="title"
+          className="startup-form_input"
+          required
+          placeholder="Nome da Startup"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+        />
         {errors.title && <p className="startup-form_error">{errors.title}</p>}
       </div>
 
@@ -84,6 +97,8 @@ const StartupForm = () => {
           className="startup-form_textarea"
           required
           placeholder="Descrição da Startup"
+          value={description}
+          onChange={e => setDescription(e.target.value)}
         />
         {errors.description && <p className="startup-form_error">{errors.description}</p>}
       </div>
@@ -98,6 +113,8 @@ const StartupForm = () => {
           className="startup-form_input"
           required
           placeholder="Categoria da Startup (ex: Tecnologia)"
+          value={category}
+          onChange={e => setCategory(e.target.value)}
         />
         {errors.category && <p className="startup-form_error">{errors.category}</p>}
       </div>
@@ -106,7 +123,15 @@ const StartupForm = () => {
         <label htmlFor="link" className="startup-form_label">
           Imagem
         </label>
-        <Input id="link" name="link" className="startup-form_input" required placeholder="URL da Imagem da Startup" />
+        <Input
+          id="link"
+          name="link"
+          className="startup-form_input"
+          required
+          placeholder="URL da Imagem da Startup"
+          value={link}
+          onChange={e => setLink(e.target.value)}
+        />
         {errors.link && <p className="startup-form_error">{errors.link}</p>}
       </div>
 
