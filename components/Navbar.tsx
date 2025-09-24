@@ -43,15 +43,24 @@ const Navbar = async () => {
               </Link>
             </>
           ) : (
-            <form
-              action={async () => {
-                'use server';
-
-                await signIn('github');
-              }}
-            >
-              <button type="submit">Entrar</button>
-            </form>
+            <div className="flex items-center gap-3">
+              <form
+                action={async () => {
+                  'use server';
+                  await signIn('github');
+                }}
+              >
+                <button className='cursor-pointer' type="submit">Entrar com GitHub</button>
+              </form>
+              <form
+                action={async () => {
+                  'use server';
+                  await signIn('google');
+                }}
+              >
+                <button className='cursor-pointer' type="submit">Entrar com Google</button>
+              </form>
+            </div>
           )}
         </div>
       </nav>
