@@ -2,6 +2,9 @@ import { auth, signIn, signOut } from '@/auth';
 import { BadgePlus, LogOut } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaGithub } from 'react-icons/fa';
+import { FaGoogle } from 'react-icons/fa';
+
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 const Navbar = async () => {
@@ -43,15 +46,38 @@ const Navbar = async () => {
               </Link>
             </>
           ) : (
-            <form
-              action={async () => {
-                'use server';
-
-                await signIn('github');
-              }}
-            >
-              <button type="submit">Entrar</button>
-            </form>
+            <div className="flex items-center gap-3">
+              <form
+                action={async () => {
+                  'use server';
+                  await signIn('github');
+                }}
+              >
+                <button
+                  className="cursor-pointer inline-flex items-center justify-center size-9 rounded-md border hover:bg-muted"
+                  type="submit"
+                  aria-label="Entrar com GitHub"
+                  title="Entrar com GitHub"
+                >
+                  <FaGithub className="size-5" />
+                </button>
+              </form>
+              <form
+                action={async () => {
+                  'use server';
+                  await signIn('google');
+                }}
+              >
+                <button
+                  className="cursor-pointer inline-flex items-center justify-center size-9 rounded-md border hover:bg-muted"
+                  type="submit"
+                  aria-label="Entrar com Google"
+                  title="Entrar com Google"
+                >
+                  <FaGoogle className="size-5" />
+                </button>
+              </form>
+            </div>
           )}
         </div>
       </nav>
